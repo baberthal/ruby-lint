@@ -7654,7 +7654,8998 @@ RubyLint.registry.register('RSpec') do |defs|
     end
   end
 
+  defs.define_constant('RSpec::Expectations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('configuration')
+
+    klass.define_method('differ')
+
+    klass.define_method('fail_with') do |method|
+      method.define_argument('message')
+      method.define_optional_argument('expected')
+      method.define_optional_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::BlockExpectationTarget') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Expectations::ExpectationTarget', RubyLint.registry))
+
+    klass.define_instance_method('not_to') do |method|
+      method.define_argument('matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to') do |method|
+      method.define_argument('matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to_not') do |method|
+      method.define_argument('matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::BlockExpectationTarget::UndefinedValue') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Expectations::Configuration') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('add_should_and_should_not_to') do |method|
+      method.define_rest_argument('modules')
+    end
+
+    klass.define_instance_method('backtrace_formatter')
+
+    klass.define_instance_method('backtrace_formatter=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('color?')
+
+    klass.define_instance_method('include_chain_clauses_in_custom_matcher_descriptions=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('include_chain_clauses_in_custom_matcher_descriptions?')
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('reset_syntaxes_to_default')
+
+    klass.define_instance_method('syntax')
+
+    klass.define_instance_method('syntax=') do |method|
+      method.define_argument('values')
+    end
+
+    klass.define_instance_method('warn_about_potential_false_positives=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('warn_about_potential_false_positives?')
+  end
+
+  defs.define_constant('RSpec::Expectations::Configuration::NullBacktraceFormatter') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('format_backtrace') do |method|
+      method.define_argument('backtrace')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::ExpectationHelper') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('check_message') do |method|
+      method.define_argument('msg')
+    end
+
+    klass.define_method('handle_failure') do |method|
+      method.define_argument('matcher')
+      method.define_argument('message')
+      method.define_argument('failure_message_method')
+    end
+
+    klass.define_method('modern_matcher_from') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_method('with_matcher') do |method|
+      method.define_argument('handler')
+      method.define_argument('matcher')
+      method.define_argument('message')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::ExpectationNotMetError') do |klass|
+    klass.inherits(defs.constant_proxy('Exception', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Expectations::ExpectationTarget') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('for') do |method|
+      method.define_argument('value')
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('value')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('not_to') do |method|
+      method.define_optional_argument('matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to') do |method|
+      method.define_optional_argument('matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to_not') do |method|
+      method.define_optional_argument('matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::ExpectationTarget::UndefinedValue') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Expectations::FailureAggregator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('aggregate')
+
+    klass.define_instance_method('block_label')
+
+    klass.define_instance_method('call') do |method|
+      method.define_argument('failure')
+      method.define_argument('options')
+    end
+
+    klass.define_instance_method('failures')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('block_label')
+      method.define_argument('metadata')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('metadata')
+
+    klass.define_instance_method('other_errors')
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMacherAdapter') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::MatcherDelegator', RubyLint.registry))
+
+    klass.define_method('wrap') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('matcher')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMatcherAdapter') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::MatcherDelegator', RubyLint.registry))
+
+    klass.define_method('wrap') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('matcher')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMatcherAdapter::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMatcherAdapter::RSpec1') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Expectations::LegacyMatcherAdapter', RubyLint.registry))
+
+    klass.define_method('interface_matches?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMatcherAdapter::RSpec2') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Expectations::LegacyMatcherAdapter', RubyLint.registry))
+
+    klass.define_method('interface_matches?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMatcherAdapter::RSpec2::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::LegacyMatcherAdapter::RSpec2::RSpec1') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Expectations::LegacyMatcherAdapter', RubyLint.registry))
+
+    klass.define_method('interface_matches?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Expectations::MultipleExpectationsNotMetError') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Expectations::ExpectationNotMetError', RubyLint.registry))
+
+    klass.define_instance_method('aggregation_block_label')
+
+    klass.define_instance_method('aggregation_metadata')
+
+    klass.define_instance_method('all_exceptions')
+
+    klass.define_instance_method('exception_count_description')
+
+    klass.define_instance_method('failures')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('failure_aggregator')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('other_errors')
+
+    klass.define_instance_method('summary')
+  end
+
+  defs.define_constant('RSpec::Expectations::NegativeExpectationHandler') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('does_not_match?') do |method|
+      method.define_argument('matcher')
+      method.define_argument('actual')
+      method.define_block_argument('block')
+    end
+
+    klass.define_method('handle_matcher') do |method|
+      method.define_argument('actual')
+      method.define_argument('initial_matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_method('opposite_should_method')
+
+    klass.define_method('should_method')
+
+    klass.define_method('verb')
+  end
+
+  defs.define_constant('RSpec::Expectations::PositiveExpectationHandler') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('handle_matcher') do |method|
+      method.define_argument('actual')
+      method.define_argument('initial_matcher')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_method('opposite_should_method')
+
+    klass.define_method('should_method')
+
+    klass.define_method('verb')
+  end
+
+  defs.define_constant('RSpec::Expectations::Syntax') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('default_should_host')
+
+    klass.define_method('disable_expect') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('disable_should') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('enable_expect') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('enable_should') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('expect_enabled?') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('should_enabled?') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('warn_about_should!')
+
+    klass.define_method('warn_about_should_unless_configured') do |method|
+      method.define_argument('method_name')
+    end
+  end
+
+  defs.define_constant('RSpec::Expectations::Version') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Expectations::Version::STRING') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
   defs.define_constant('RSpec::MODULES_TO_AUTOLOAD') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('alias_matcher') do |method|
+      method.define_argument('new_name')
+      method.define_argument('old_name')
+      method.define_optional_argument('options')
+      method.define_block_argument('description_override')
+    end
+
+    klass.define_method('clear_generated_description')
+
+    klass.define_method('configuration')
+
+    klass.define_method('define_negated_matcher') do |method|
+      method.define_argument('negated_name')
+      method.define_argument('base_name')
+      method.define_block_argument('description_override')
+    end
+
+    klass.define_method('generated_description')
+
+    klass.define_method('is_a_describable_matcher?') do |method|
+      method.define_argument('obj')
+    end
+
+    klass.define_method('is_a_matcher?') do |method|
+      method.define_argument('obj')
+    end
+
+    klass.define_method('last_description')
+
+    klass.define_method('last_expectation_handler')
+
+    klass.define_method('last_expectation_handler=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_method('last_matcher')
+
+    klass.define_method('last_matcher=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('a_block_changing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_outputting') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_raising') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_throwing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_yielding_control') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_yielding_successive_args') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_yielding_with_args') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_block_yielding_with_no_args') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_collection_containing_exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_collection_ending_with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_collection_including') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_collection_starting_with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_falsey_value') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_falsy_value') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_hash_including') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_kind_of') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_nil_value') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_range_covering') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_string_ending_with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_string_including') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_string_matching') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_string_starting_with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_truthy_value') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_value') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_value_between') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('a_value_within') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('aggregate_failures') do |method|
+      method.define_optional_argument('label')
+      method.define_optional_argument('metadata')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('all') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('an_instance_of') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_eq_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_eql_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_equal_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_existing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_having_attributes') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_matching') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_responding_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('an_object_satisfying') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('be') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('be_a') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('be_a_kind_of') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('be_an') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('be_an_instance_of') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('be_between') do |method|
+      method.define_argument('min')
+      method.define_argument('max')
+    end
+
+    klass.define_instance_method('be_falsey')
+
+    klass.define_instance_method('be_falsy') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('be_instance_of') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('be_kind_of') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('be_nil')
+
+    klass.define_instance_method('be_truthy')
+
+    klass.define_instance_method('be_within') do |method|
+      method.define_argument('delta')
+    end
+
+    klass.define_instance_method('change') do |method|
+      method.define_optional_argument('receiver')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('changing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('contain_exactly') do |method|
+      method.define_rest_argument('items')
+    end
+
+    klass.define_instance_method('containing_exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('cover') do |method|
+      method.define_rest_argument('values')
+    end
+
+    klass.define_instance_method('covering') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('end_with') do |method|
+      method.define_rest_argument('expected')
+    end
+
+    klass.define_instance_method('ending_with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('eq') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('eq_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('eql') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('eql_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('equal') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('equal_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exist') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('existing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('expect') do |method|
+      method.define_optional_argument('value')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('have_attributes') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('include') do |method|
+      method.define_rest_argument('expected')
+    end
+
+    klass.define_instance_method('including') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('match') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('match_array') do |method|
+      method.define_argument('items')
+    end
+
+    klass.define_instance_method('match_regex') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('matching') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('output') do |method|
+      method.define_optional_argument('expected')
+    end
+
+    klass.define_instance_method('raise_error') do |method|
+      method.define_optional_argument('error')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('raise_exception') do |method|
+      method.define_optional_argument('error')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('raising') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('respond_to') do |method|
+      method.define_rest_argument('names')
+    end
+
+    klass.define_instance_method('responding_to') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('satisfy') do |method|
+      method.define_optional_argument('description')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('satisfying') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('start_with') do |method|
+      method.define_rest_argument('expected')
+    end
+
+    klass.define_instance_method('starting_with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('throw_symbol') do |method|
+      method.define_optional_argument('expected_symbol')
+      method.define_optional_argument('expected_arg')
+    end
+
+    klass.define_instance_method('throwing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('within') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('yield_control')
+
+    klass.define_instance_method('yield_successive_args') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('yield_with_args') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('yield_with_no_args')
+
+    klass.define_instance_method('yielding_control') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('yielding_successive_args') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('yielding_with_args') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('yielding_with_no_args') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::AliasedMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::MatcherDelegator', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('base_matcher')
+      method.define_argument('description_block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::AliasedMatcherWithOperatorSupport') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::AliasedMatcher', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::AliasedNegatedMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::AliasedMatcher', RubyLint.registry))
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BE_PREDICATE_REGEX') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::All') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('_actual')
+    end
+
+    klass.define_instance_method('failed_objects')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('matcher')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matcher')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::All::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::All::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::All::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::All::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BaseMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher::DefaultFailureMessages', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher::HashFormatting', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::Composable', RubyLint.registry))
+
+    klass.define_method('matcher_name')
+
+    klass.define_instance_method('actual')
+
+    klass.define_instance_method('actual_formatted')
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('expected')
+
+    klass.define_instance_method('expected_formatted')
+
+    klass.define_instance_method('expects_call_stack_jump?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_optional_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('match_unless_raises') do |method|
+      method.define_rest_argument('exceptions')
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('present_ivars')
+
+    klass.define_instance_method('rescued_exception')
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BaseMatcher::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BaseMatcher::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BaseMatcher::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BaseMatcher::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Be') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BeHelpers', RubyLint.registry))
+
+    klass.define_instance_method('<') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('<=') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('=~') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('>') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('>=') do |method|
+      method.define_argument('operand')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Be::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Be::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Be::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Be::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAKindOf') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAKindOf::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAKindOf::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAKindOf::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAKindOf::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAnInstanceOf') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAnInstanceOf::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAnInstanceOf::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAnInstanceOf::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeAnInstanceOf::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeBetween') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('exclusive')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('inclusive')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('min')
+      method.define_argument('max')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeBetween::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeBetween::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeBetween::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeBetween::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeComparedTo') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BeHelpers', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('operand')
+      method.define_argument('operator')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeComparedTo::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeComparedTo::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeComparedTo::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeComparedTo::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeFalsey') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeFalsey::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeFalsey::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeFalsey::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeFalsey::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeNil') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeNil::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeNil::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeNil::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeNil::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BePredicate') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BeHelpers', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('actual')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BePredicate::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BePredicate::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BePredicate::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BePredicate::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeTruthy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeTruthy::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeTruthy::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeTruthy::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeTruthy::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeWithin') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('delta')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('of') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('percent_of') do |method|
+      method.define_argument('expected')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeWithin::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeWithin::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeWithin::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::BeWithin::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Change') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('by') do |method|
+      method.define_argument('expected_delta')
+    end
+
+    klass.define_instance_method('by_at_least') do |method|
+      method.define_argument('minimum')
+    end
+
+    klass.define_instance_method('by_at_most') do |method|
+      method.define_argument('maximum')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('event_proc')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('from') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_optional_argument('receiver')
+      method.define_optional_argument('message')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('event_proc')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+
+    klass.define_instance_method('to') do |method|
+      method.define_argument('value')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Change::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Change::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Change::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Change::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('diffable_matcher_list')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('_actual')
+    end
+
+    klass.define_instance_method('evaluator')
+
+    klass.define_instance_method('expected')
+
+    klass.define_instance_method('expects_call_stack_jump?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('matcher_1')
+      method.define_argument('matcher_2')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matcher_1')
+
+    klass.define_instance_method('matcher_2')
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::Compound', RubyLint.registry))
+
+    klass.define_instance_method('failure_message')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::NestedEvaluator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('matcher_expects_call_stack_jump?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('actual')
+      method.define_argument('matcher_1')
+      method.define_argument('matcher_2')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matcher_matches?') do |method|
+      method.define_argument('matcher')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::Or') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::Compound', RubyLint.registry))
+
+    klass.define_instance_method('failure_message')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::SequentialEvaluator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('actual')
+      method.define_rest_argument('arg2')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matcher_matches?') do |method|
+      method.define_argument('matcher')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::And::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::NestedEvaluator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('matcher_expects_call_stack_jump?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('actual')
+      method.define_argument('matcher_1')
+      method.define_argument('matcher_2')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matcher_matches?') do |method|
+      method.define_argument('matcher')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::Or') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::Compound', RubyLint.registry))
+
+    klass.define_instance_method('failure_message')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::SequentialEvaluator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('actual')
+      method.define_rest_argument('arg2')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matcher_matches?') do |method|
+      method.define_argument('matcher')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Compound::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('actual_to_expected_matched_indexes')
+
+    klass.define_instance_method('expected_to_actual_matched_indexes')
+
+    klass.define_instance_method('find_best_solution')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected_to_actual_matched_indexes')
+      method.define_argument('actual_to_expected_matched_indexes')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('solution')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer::NullSolution') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('worse_than?') do |method|
+      method.define_argument('_other')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer::Solution') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('+') do |method|
+      method.define_argument('derived_candidate_solution')
+    end
+
+    klass.define_instance_method('candidate?')
+
+    klass.define_instance_method('ideal?')
+
+    klass.define_instance_method('indeterminate_actual_indexes')
+
+    klass.define_instance_method('indeterminate_actual_indexes=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('indeterminate_expected_indexes')
+
+    klass.define_instance_method('indeterminate_expected_indexes=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('unmatched_actual_indexes')
+
+    klass.define_instance_method('unmatched_actual_indexes=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('unmatched_expected_indexes')
+
+    klass.define_instance_method('unmatched_expected_indexes=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('unmatched_item_count')
+
+    klass.define_instance_method('worse_than?') do |method|
+      method.define_argument('other')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer::Solution::Group') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('mem')
+
+    klass.define_instance_method('mem=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer::Solution::Passwd') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('change')
+
+    klass.define_instance_method('change=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('dir')
+
+    klass.define_instance_method('dir=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('expire')
+
+    klass.define_instance_method('expire=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gecos')
+
+    klass.define_instance_method('gecos=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('shell')
+
+    klass.define_instance_method('shell=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uclass')
+
+    klass.define_instance_method('uclass=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uid')
+
+    klass.define_instance_method('uid=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::PairingsMaximizer::Solution::Tms') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('cstime')
+
+    klass.define_instance_method('cstime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('cutime')
+
+    klass.define_instance_method('cutime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('stime')
+
+    klass.define_instance_method('stime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('utime')
+
+    klass.define_instance_method('utime=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ContainExactly::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Cover') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('range')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('range')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Cover::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Cover::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Cover::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Cover::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::EndWith') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::StartOrEndWith', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::EndWith::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::EndWith::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::EndWith::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::EndWith::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eq') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eq::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eq::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eq::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eq::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eql') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eql::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eql::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eql::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Eql::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Equal') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Equal::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Equal::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Equal::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Equal::LITERAL_SINGLETONS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Equal::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::ExistenceTest') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('actual_exists?')
+
+    klass.define_instance_method('valid_test?')
+
+    klass.define_instance_method('validity_message')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::ExistenceTest::Group') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('mem')
+
+    klass.define_instance_method('mem=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::ExistenceTest::Passwd') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('change')
+
+    klass.define_instance_method('change=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('dir')
+
+    klass.define_instance_method('dir=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('expire')
+
+    klass.define_instance_method('expire=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gecos')
+
+    klass.define_instance_method('gecos=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('shell')
+
+    klass.define_instance_method('shell=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uclass')
+
+    klass.define_instance_method('uclass=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uid')
+
+    klass.define_instance_method('uid=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::ExistenceTest::Tms') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('cstime')
+
+    klass.define_instance_method('cstime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('cutime')
+
+    klass.define_instance_method('cutime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('stime')
+
+    klass.define_instance_method('stime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('utime')
+
+    klass.define_instance_method('utime=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Exist::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Has') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('actual')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('method_name')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Has::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Has::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Has::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Has::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::HaveAttributes') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('actual')
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('respond_to_failed')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::HaveAttributes::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::HaveAttributes::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::HaveAttributes::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::HaveAttributes::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Include') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Include::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Include::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Include::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Include::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Match') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Match::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Match::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Match::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Match::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::NegativeOperatorMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::OperatorMatcher', RubyLint.registry))
+
+    klass.define_instance_method('__delegate_operator') do |method|
+      method.define_argument('actual')
+      method.define_argument('operator')
+      method.define_argument('expected')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::OperatorMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('get') do |method|
+      method.define_argument('klass')
+      method.define_argument('operator')
+    end
+
+    klass.define_method('register') do |method|
+      method.define_argument('klass')
+      method.define_argument('operator')
+      method.define_argument('matcher')
+    end
+
+    klass.define_method('registry')
+
+    klass.define_method('unregister') do |method|
+      method.define_argument('klass')
+      method.define_argument('operator')
+    end
+
+    klass.define_method('use_custom_matcher_or_delegate') do |method|
+      method.define_argument('operator')
+    end
+
+    klass.define_instance_method('!=') do |method|
+      method.define_argument('_expected')
+    end
+
+    klass.define_instance_method('!~') do |method|
+      method.define_argument('_expected')
+    end
+
+    klass.define_instance_method('<') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('<=') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('=~') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('>') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('>=') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('fail_with_message') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('actual')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Output') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+
+    klass.define_instance_method('to_stderr')
+
+    klass.define_instance_method('to_stderr_from_any_process')
+
+    klass.define_instance_method('to_stdout')
+
+    klass.define_instance_method('to_stdout_from_any_process')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Output::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Output::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Output::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Output::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::PositiveOperatorMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::OperatorMatcher', RubyLint.registry))
+
+    klass.define_instance_method('__delegate_operator') do |method|
+      method.define_argument('actual')
+      method.define_argument('operator')
+      method.define_argument('expected')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RaiseError') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::Composable', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('given_proc')
+    end
+
+    klass.define_instance_method('expects_call_stack_jump?')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_optional_argument('expected_error_or_message')
+      method.define_optional_argument('expected_message')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('given_proc')
+      method.define_optional_argument('negative_expectation')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+
+    klass.define_instance_method('with_message') do |method|
+      method.define_argument('expected_message')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RaiseError::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RespondTo') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('argument')
+
+    klass.define_instance_method('arguments')
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('names')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_argument('n')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RespondTo::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RespondTo::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RespondTo::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::RespondTo::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Satisfy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_optional_argument('description')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('actual')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Satisfy::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Satisfy::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Satisfy::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::Satisfy::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::StartWith') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::StartOrEndWith', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::StartWith::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::StartWith::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::StartWith::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::StartWith::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ThrowSymbol') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::Composable', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('given_proc')
+    end
+
+    klass.define_instance_method('expects_call_stack_jump?')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_optional_argument('expected_symbol')
+      method.define_optional_argument('expected_arg')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('given_proc')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::ThrowSymbol::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldControl') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_argument('number')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_argument('number')
+    end
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_argument('number')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('once')
+
+    klass.define_instance_method('supports_block_expectations?')
+
+    klass.define_instance_method('thrice')
+
+    klass.define_instance_method('times')
+
+    klass.define_instance_method('twice')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldControl::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldControl::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldControl::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldControl::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldSuccessiveArgs') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldSuccessiveArgs::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldSuccessiveArgs::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldSuccessiveArgs::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldSuccessiveArgs::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithArgs') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithArgs::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithArgs::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithArgs::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithArgs::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithNoArgs') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher', RubyLint.registry))
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('block')
+    end
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithNoArgs::DefaultFailureMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('has_default_failure_messages?') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithNoArgs::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithNoArgs::HashFormatting') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('improve_hash_formatting') do |method|
+      method.define_argument('inspect_string')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::BuiltIn::YieldWithNoArgs::UNDEFINED') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::Composable') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('should_enumerate?') do |method|
+      method.define_argument('item')
+    end
+
+    klass.define_method('surface_descriptions_in') do |method|
+      method.define_argument('item')
+    end
+
+    klass.define_instance_method('&') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('and') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('or') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('|') do |method|
+      method.define_argument('matcher')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::Composable::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::Composable::DescribableItem::Group') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('mem')
+
+    klass.define_instance_method('mem=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::Composable::DescribableItem::Passwd') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('change')
+
+    klass.define_instance_method('change=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('dir')
+
+    klass.define_instance_method('dir=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('expire')
+
+    klass.define_instance_method('expire=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gecos')
+
+    klass.define_instance_method('gecos=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('shell')
+
+    klass.define_instance_method('shell=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uclass')
+
+    klass.define_instance_method('uclass=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uid')
+
+    klass.define_instance_method('uid=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::Composable::DescribableItem::Tms') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('cstime')
+
+    klass.define_instance_method('cstime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('cutime')
+
+    klass.define_instance_method('cutime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('stime')
+
+    klass.define_instance_method('stime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('utime')
+
+    klass.define_instance_method('utime=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('define') do |method|
+      method.define_argument('name')
+      method.define_block_argument('declarations')
+    end
+
+    klass.define_instance_method('matcher') do |method|
+      method.define_argument('name')
+      method.define_block_argument('declarations')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::DefaultImplementations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('diffable?')
+
+    klass.define_instance_method('expects_call_stack_jump?')
+
+    klass.define_instance_method('supports_block_expectations?')
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Macros') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('chain') do |method|
+      method.define_argument('method_name')
+      method.define_rest_argument('attr_names')
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('description') do |method|
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('diffable')
+
+    klass.define_instance_method('failure_message') do |method|
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('failure_message_when_negated') do |method|
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('match') do |method|
+      method.define_block_argument('match_block')
+    end
+
+    klass.define_instance_method('match_unless_raises') do |method|
+      method.define_optional_argument('expected_exception')
+      method.define_block_argument('match_block')
+    end
+
+    klass.define_instance_method('match_when_negated') do |method|
+      method.define_block_argument('match_block')
+    end
+
+    klass.define_instance_method('supports_block_expectations')
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Macros::Deprecated') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('failure_message_for_should') do |method|
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('failure_message_for_should_not') do |method|
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('match_for_should') do |method|
+      method.define_block_argument('definition')
+    end
+
+    klass.define_instance_method('match_for_should_not') do |method|
+      method.define_block_argument('definition')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Macros::RAISE_NOTIFIER') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::Composable', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::DSL::DefaultImplementations', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::BuiltIn::BaseMatcher::DefaultFailureMessages', RubyLint.registry))
+
+    klass.define_instance_method('actual')
+
+    klass.define_instance_method('block_arg')
+
+    klass.define_instance_method('expected')
+
+    klass.define_instance_method('expected_as_array')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('name')
+      method.define_argument('declarations')
+      method.define_argument('matcher_execution_context')
+      method.define_rest_argument('expected')
+      method.define_block_argument('block_arg')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('rescued_exception')
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::AliasedMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::MatcherDelegator', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('base_matcher')
+      method.define_argument('description_block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::AliasedMatcherWithOperatorSupport') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::AliasedMatcher', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::AliasedNegatedMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::AliasedMatcher', RubyLint.registry))
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::BE_PREDICATE_REGEX') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::BuiltIn') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::Composable') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('should_enumerate?') do |method|
+      method.define_argument('item')
+    end
+
+    klass.define_method('surface_descriptions_in') do |method|
+      method.define_argument('item')
+    end
+
+    klass.define_instance_method('&') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('and') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('or') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_instance_method('|') do |method|
+      method.define_argument('matcher')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::DSL') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('define') do |method|
+      method.define_argument('name')
+      method.define_block_argument('declarations')
+    end
+
+    klass.define_instance_method('matcher') do |method|
+      method.define_argument('name')
+      method.define_block_argument('declarations')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::DYNAMIC_MATCHER_REGEX') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::DescribableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('item')
+
+    klass.define_instance_method('item=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::EnglishPhrasing') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('list') do |method|
+      method.define_argument('obj')
+    end
+
+    klass.define_method('split_words') do |method|
+      method.define_argument('sym')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::ExpectedsForMultipleDiffs') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('diff_label_for') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_method('for_many_matchers') do |method|
+      method.define_argument('matchers')
+    end
+
+    klass.define_method('from') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_method('truncated') do |method|
+      method.define_argument('description')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected_list')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('message_with_diff') do |method|
+      method.define_argument('message')
+      method.define_argument('differ')
+      method.define_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::HAS_REGEX') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::DSL::Matcher::MatcherDelegator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::Composable', RubyLint.registry))
+
+    klass.define_instance_method('base_matcher')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('base_matcher')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_missing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::DYNAMIC_MATCHER_REGEX') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::EnglishPhrasing') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('list') do |method|
+      method.define_argument('obj')
+    end
+
+    klass.define_method('split_words') do |method|
+      method.define_argument('sym')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::ExpectedsForMultipleDiffs') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('diff_label_for') do |method|
+      method.define_argument('matcher')
+    end
+
+    klass.define_method('for_many_matchers') do |method|
+      method.define_argument('matchers')
+    end
+
+    klass.define_method('from') do |method|
+      method.define_argument('expected')
+    end
+
+    klass.define_method('truncated') do |method|
+      method.define_argument('description')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected_list')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('message_with_diff') do |method|
+      method.define_argument('message')
+      method.define_argument('differ')
+      method.define_argument('actual')
+    end
+  end
+
+  defs.define_constant('RSpec::Matchers::HAS_REGEX') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Matchers::MatcherDelegator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Matchers::Composable', RubyLint.registry))
+
+    klass.define_instance_method('base_matcher')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('base_matcher')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_missing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('allow_message') do |method|
+      method.define_argument('subject')
+      method.define_argument('message')
+      method.define_optional_argument('opts')
+      method.define_block_argument('block')
+    end
+
+    klass.define_method('configuration')
+
+    klass.define_method('error_generator')
+
+    klass.define_method('expect_message') do |method|
+      method.define_argument('subject')
+      method.define_argument('message')
+      method.define_optional_argument('opts')
+      method.define_block_argument('block')
+    end
+
+    klass.define_method('setup')
+
+    klass.define_method('space')
+
+    klass.define_method('teardown')
+
+    klass.define_method('verify')
+
+    klass.define_method('with_temporary_scope')
+  end
+
+  defs.define_constant('RSpec::Mocks::AllowanceTarget') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TargetBase', RubyLint.registry))
+
+    klass.define_instance_method('not_to') do |method|
+      method.define_argument('matcher')
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('to') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to_not') do |method|
+      method.define_argument('matcher')
+      method.define_rest_argument('_args')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AllowanceTarget::EXPRESSION') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::AndReturnImplementation') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('call') do |method|
+      method.define_rest_argument('_args_to_ignore')
+      method.define_block_argument('_block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('values_to_return')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AndWrapOriginalImplementation') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('call') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initial_action=') do |method|
+      method.define_argument('_value')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('method')
+      method.define_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inner_action')
+
+    klass.define_instance_method('inner_action=') do |method|
+      method.define_argument('_value')
+    end
+
+    klass.define_instance_method('present?')
+
+    klass.define_instance_method('terminal_action=') do |method|
+      method.define_argument('_value')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AndWrapOriginalImplementation::CannotModifyFurtherError') do |klass|
+    klass.inherits(defs.constant_proxy('StandardError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::AndYieldImplementation') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('call') do |method|
+      method.define_rest_argument('_args_to_ignore')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('args_to_yield')
+      method.define_argument('eval_context')
+      method.define_argument('error_generator')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('error_generator')
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::Chain') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::AnyInstance::Chain::Customizations', RubyLint.registry))
+
+    klass.define_instance_method('constrained_to_any_of?') do |method|
+      method.define_rest_argument('constraints')
+    end
+
+    klass.define_instance_method('expectation_fulfilled!')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('recorder')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches_args?') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('never')
+
+    klass.define_instance_method('playback!') do |method|
+      method.define_argument('instance')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::Chain::Customizations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('record') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::ErrorGenerator') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ErrorGenerator', RubyLint.registry))
+
+    klass.define_instance_method('raise_does_not_implement_error') do |method|
+      method.define_argument('klass')
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('raise_message_already_received_by_other_instance_error') do |method|
+      method.define_argument('method_name')
+      method.define_argument('object_inspect')
+      method.define_argument('invoked_instance')
+    end
+
+    klass.define_instance_method('raise_not_supported_with_prepend_error') do |method|
+      method.define_argument('method_name')
+      method.define_argument('problem_mod')
+    end
+
+    klass.define_instance_method('raise_second_instance_received_message_error') do |method|
+      method.define_argument('unfulfilled_expectations')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::ExpectChainChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::AnyInstance::StubChain', RubyLint.registry))
+
+    klass.define_instance_method('expectation_fulfilled?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('playback!') do |method|
+      method.define_argument('instance')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::ExpectChainChain::Customizations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('record') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::ExpectationChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::AnyInstance::Chain', RubyLint.registry))
+
+    klass.define_instance_method('expectation_fulfilled?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::ExpectationChain::Customizations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('record') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::FluentInterfaceProxy') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('targets')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_missing') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::MessageChains') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('[]') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('add') do |method|
+      method.define_argument('method_name')
+      method.define_argument('chain')
+    end
+
+    klass.define_instance_method('all_expectations_fulfilled?')
+
+    klass.define_instance_method('each_unfulfilled_expectation_matching') do |method|
+      method.define_argument('method_name')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('has_expectation?') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('playback!') do |method|
+      method.define_argument('instance')
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('received_expected_message!') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('remove_stub_chains_for!') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('unfulfilled_expectations')
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::PositiveExpectationChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::AnyInstance::ExpectationChain', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::PositiveExpectationChain::Customizations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('record') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::Proxy') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('expect_chain') do |method|
+      method.define_rest_argument('chain')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('recorder')
+      method.define_argument('target_proxies')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('klass')
+
+    klass.define_instance_method('should_not_receive') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('should_receive') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('stub') do |method|
+      method.define_argument('method_name_or_method_map')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('stub_chain') do |method|
+      method.define_rest_argument('chain')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('unstub') do |method|
+      method.define_argument('method_name')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::Recorder') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('already_observing?') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('build_alias_method_name') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('expect_chain') do |method|
+      method.define_rest_argument('method_names_and_optional_return_values')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('klass')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('instance_that_received') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('klass')
+
+    klass.define_instance_method('message_chains')
+
+    klass.define_instance_method('notify_received_message') do |method|
+      method.define_argument('_object')
+      method.define_argument('message')
+      method.define_argument('args')
+      method.define_argument('_blk')
+    end
+
+    klass.define_instance_method('playback!') do |method|
+      method.define_argument('instance')
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('should_not_receive') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('should_receive') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('stop_all_observation!')
+
+    klass.define_instance_method('stop_observing!') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('stub') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('stub_chain') do |method|
+      method.define_rest_argument('method_names_and_optional_return_values')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('stubs')
+
+    klass.define_instance_method('unstub') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('verify')
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::StubChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::AnyInstance::Chain', RubyLint.registry))
+
+    klass.define_instance_method('expectation_fulfilled?')
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::StubChain::Customizations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('record') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::StubChainChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::AnyInstance::StubChain', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstance::StubChainChain::Customizations') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('record') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstanceAllowanceTarget') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TargetBase', RubyLint.registry))
+
+    klass.define_instance_method('not_to') do |method|
+      method.define_argument('matcher')
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('to') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to_not') do |method|
+      method.define_argument('matcher')
+      method.define_rest_argument('_args')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstanceAllowanceTarget::EXPRESSION') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstanceExpectationTarget') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TargetBase', RubyLint.registry))
+
+    klass.define_instance_method('not_to') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to_not') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::AnyInstanceExpectationTarget::EXPRESSION') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentListMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('args_match?') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('expected_args')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('expected_args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('resolve_expected_args_based_on') do |method|
+      method.define_argument('actual_args')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentListMatcher::MATCH_ALL') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('anythingize_lonely_keys') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('a_kind_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('an_instance_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('any_args')
+
+    klass.define_instance_method('anything')
+
+    klass.define_instance_method('array_including') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('boolean')
+
+    klass.define_instance_method('duck_type') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('hash_excluding') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('hash_including') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('hash_not_including') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('instance_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('kind_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('no_args')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::AnyArgMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('_other')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::AnyArgMatcher::INSTANCE') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::AnyArgsMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::AnyArgsMatcher::INSTANCE') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::ArrayIncludingMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::BaseHashMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('predicate')
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description') do |method|
+      method.define_argument('name')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::BooleanMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::BooleanMatcher::INSTANCE') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::DuckTypeMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('methods_to_respond_to')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::HashExcludingMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::BaseHashMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::HashIncludingMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::BaseHashMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::InstanceOf') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('klass')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::KindOf') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('klass')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::NoArgsMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::NoArgsMatcher::INSTANCE') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ArgumentMatchers::SingletonMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('inherited') do |method|
+      method.define_argument('subklass')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::CallbackInvocationStrategy') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('call') do |method|
+      method.define_argument('doubled_module')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::CannotSupportArgMutationsError') do |klass|
+    klass.inherits(defs.constant_proxy('StandardError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ClassNewMethodReference') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ObjectMethodReference', RubyLint.registry))
+
+    klass.define_method('applies_to?') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('with_signature')
+  end
+
+  defs.define_constant('RSpec::Mocks::ClassVerifyingDouble') do |klass|
+    klass.inherits(defs.constant_proxy('Module', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ObjectVerifyingDoubleMethods', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingDouble', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TestDouble', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ClassVerifyingDouble::SilentIO') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('respond_to?') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Configuration') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('add_stub_and_should_receive_to') do |method|
+      method.define_rest_argument('modules')
+    end
+
+    klass.define_instance_method('before_verifying_doubles') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('color?')
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('patch_marshal_to_support_partial_doubles=') do |method|
+      method.define_argument('val')
+    end
+
+    klass.define_instance_method('reset_syntaxes_to_default')
+
+    klass.define_instance_method('syntax')
+
+    klass.define_instance_method('syntax=') do |method|
+      method.define_rest_argument('values')
+    end
+
+    klass.define_instance_method('transfer_nested_constants=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('transfer_nested_constants?')
+
+    klass.define_instance_method('verify_doubled_constant_names=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('verify_doubled_constant_names?')
+
+    klass.define_instance_method('verify_partial_doubles=') do |method|
+      method.define_argument('val')
+    end
+
+    klass.define_instance_method('verify_partial_doubles?')
+
+    klass.define_instance_method('verifying_double_callbacks')
+
+    klass.define_instance_method('when_declaring_verifying_double') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('yield_receiver_to_any_instance_implementation_blocks=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('yield_receiver_to_any_instance_implementation_blocks?')
+  end
+
+  defs.define_constant('RSpec::Mocks::Constant') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('original') do |method|
+      method.define_argument('name')
+    end
+
+    klass.define_method('unmutated') do |method|
+      method.define_argument('name')
+    end
+
+    klass.define_instance_method('hidden=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('hidden?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('name')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('mutated?')
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('original_value')
+
+    klass.define_instance_method('original_value=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('previously_defined=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('previously_defined?')
+
+    klass.define_instance_method('stubbed=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('stubbed?')
+
+    klass.define_instance_method('to_s')
+
+    klass.define_instance_method('valid_name=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('valid_name?')
+  end
+
+  defs.define_constant('RSpec::Mocks::ConstantMutator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('hide') do |method|
+      method.define_argument('constant_name')
+    end
+
+    klass.define_method('mutate') do |method|
+      method.define_argument('mutator')
+    end
+
+    klass.define_method('raise_on_invalid_const')
+
+    klass.define_method('stub') do |method|
+      method.define_argument('constant_name')
+      method.define_argument('value')
+      method.define_optional_argument('options')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ConstantMutator::BaseMutator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Support::RecursiveConstMethods', RubyLint.registry))
+
+    klass.define_instance_method('full_constant_name')
+
+    klass.define_instance_method('idempotently_reset')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('full_constant_name')
+      method.define_argument('mutated_value')
+      method.define_argument('transfer_nested_constants')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('original_value')
+
+    klass.define_instance_method('to_constant')
+  end
+
+  defs.define_constant('RSpec::Mocks::ConstantMutator::ConstantHider') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ConstantMutator::BaseMutator', RubyLint.registry))
+
+    klass.define_instance_method('mutate')
+
+    klass.define_instance_method('reset')
+
+    klass.define_instance_method('to_constant')
+  end
+
+  defs.define_constant('RSpec::Mocks::ConstantMutator::DefinedConstantReplacer') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ConstantMutator::BaseMutator', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('mutate')
+
+    klass.define_instance_method('reset')
+
+    klass.define_instance_method('should_transfer_nested_constants?')
+
+    klass.define_instance_method('to_constant')
+
+    klass.define_instance_method('transfer_nested_constants')
+
+    klass.define_instance_method('verify_constants_to_transfer!')
+  end
+
+  defs.define_constant('RSpec::Mocks::ConstantMutator::UndefinedConstantSetter') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ConstantMutator::BaseMutator', RubyLint.registry))
+
+    klass.define_instance_method('mutate')
+
+    klass.define_instance_method('reset')
+
+    klass.define_instance_method('to_constant')
+  end
+
+  defs.define_constant('RSpec::Mocks::DEFAULT_CALLBACK_INVOCATION_STRATEGY') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::DirectObjectReference') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('const_to_replace')
+
+    klass.define_instance_method('defined?')
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('target')
+
+    klass.define_instance_method('when_loaded')
+  end
+
+  defs.define_constant('RSpec::Mocks::Double') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TestDouble', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ErrorGenerator') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('default_error_message') do |method|
+      method.define_argument('expectation')
+      method.define_argument('expected_args')
+      method.define_argument('actual_args')
+    end
+
+    klass.define_instance_method('describe_expectation') do |method|
+      method.define_argument('verb')
+      method.define_argument('message')
+      method.define_argument('expected_received_count')
+      method.define_argument('_actual_received_count')
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_optional_argument('target')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('opts')
+
+    klass.define_instance_method('opts=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('raise_already_invoked_error') do |method|
+      method.define_argument('message')
+      method.define_argument('calling_customization')
+    end
+
+    klass.define_instance_method('raise_cant_constrain_count_for_negated_have_received_error') do |method|
+      method.define_argument('count_constraint')
+    end
+
+    klass.define_instance_method('raise_double_negation_error') do |method|
+      method.define_argument('wrapped_expression')
+    end
+
+    klass.define_instance_method('raise_expectation_error') do |method|
+      method.define_argument('message')
+      method.define_argument('expected_received_count')
+      method.define_argument('argument_list_matcher')
+      method.define_argument('actual_received_count')
+      method.define_argument('expectation_count_type')
+      method.define_argument('args')
+      method.define_optional_argument('backtrace_line')
+      method.define_optional_argument('source_id')
+    end
+
+    klass.define_instance_method('raise_expectation_on_mocked_method') do |method|
+      method.define_argument('method')
+    end
+
+    klass.define_instance_method('raise_expectation_on_unstubbed_method') do |method|
+      method.define_argument('method')
+    end
+
+    klass.define_instance_method('raise_expired_test_double_error')
+
+    klass.define_instance_method('raise_have_received_disallowed') do |method|
+      method.define_argument('type')
+      method.define_argument('reason')
+    end
+
+    klass.define_instance_method('raise_invalid_arguments_error') do |method|
+      method.define_argument('verifier')
+    end
+
+    klass.define_instance_method('raise_method_not_stubbed_error') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('raise_missing_block_error') do |method|
+      method.define_argument('args_to_yield')
+    end
+
+    klass.define_instance_method('raise_missing_default_stub_error') do |method|
+      method.define_argument('expectation')
+      method.define_argument('args_for_multiple_calls')
+    end
+
+    klass.define_instance_method('raise_non_public_error') do |method|
+      method.define_argument('method_name')
+      method.define_argument('visibility')
+    end
+
+    klass.define_instance_method('raise_only_valid_on_a_partial_double') do |method|
+      method.define_argument('method')
+    end
+
+    klass.define_instance_method('raise_out_of_order_error') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('raise_similar_message_args_error') do |method|
+      method.define_argument('expectation')
+      method.define_argument('args_for_multiple_calls')
+      method.define_optional_argument('backtrace_line')
+    end
+
+    klass.define_instance_method('raise_unexpected_message_args_error') do |method|
+      method.define_argument('expectation')
+      method.define_argument('args_for_multiple_calls')
+      method.define_optional_argument('source_id')
+    end
+
+    klass.define_instance_method('raise_unexpected_message_error') do |method|
+      method.define_argument('message')
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('raise_unimplemented_error') do |method|
+      method.define_argument('doubled_module')
+      method.define_argument('method_name')
+      method.define_argument('object')
+    end
+
+    klass.define_instance_method('raise_verifying_double_not_defined_error') do |method|
+      method.define_argument('ref')
+    end
+
+    klass.define_instance_method('raise_wrong_arity_error') do |method|
+      method.define_argument('args_to_yield')
+      method.define_argument('signature')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('declare_double') do |method|
+      method.define_argument('type')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_method('declare_verifying_double') do |method|
+      method.define_argument('type')
+      method.define_argument('ref')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_method('extended') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_method('included') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('allow') do |method|
+      method.define_argument('target')
+    end
+
+    klass.define_instance_method('allow_any_instance_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('allow_message_expectations_on_nil')
+
+    klass.define_instance_method('class_double') do |method|
+      method.define_argument('doubled_class')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('class_spy') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('double') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('expect_any_instance_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('have_received') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('hide_const') do |method|
+      method.define_argument('constant_name')
+    end
+
+    klass.define_instance_method('instance_double') do |method|
+      method.define_argument('doubled_class')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('instance_spy') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('object_double') do |method|
+      method.define_argument('object_or_name')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('object_spy') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('receive') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('receive_message_chain') do |method|
+      method.define_rest_argument('messages')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('receive_messages') do |method|
+      method.define_argument('message_return_value_hash')
+    end
+
+    klass.define_instance_method('spy') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('stub_const') do |method|
+      method.define_argument('constant_name')
+      method.define_argument('value')
+      method.define_optional_argument('options')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::AnyArgMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('_other')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::AnyArgsMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::ArrayIncludingMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::BaseHashMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('predicate')
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description') do |method|
+      method.define_argument('name')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('expected')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::BooleanMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::DuckTypeMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('value')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('methods_to_respond_to')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::ExpectHost') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('expect') do |method|
+      method.define_argument('target')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::HashExcludingMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::BaseHashMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::HashIncludingMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::BaseHashMatcher', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::InstanceOf') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('klass')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::KindOf') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('===') do |method|
+      method.define_argument('actual')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('klass')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::NoArgsMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ArgumentMatchers::SingletonMatcher', RubyLint.registry))
+
+    klass.define_instance_method('description')
+  end
+
+  defs.define_constant('RSpec::Mocks::ExampleMethods::SingletonMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('inherited') do |method|
+      method.define_argument('subklass')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExpectChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MessageChain', RubyLint.registry))
+
+    klass.define_method('expect_chain_on') do |method|
+      method.define_argument('object')
+      method.define_rest_argument('chain')
+      method.define_block_argument('blk')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExpectationTarget') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TargetBase', RubyLint.registry))
+
+    klass.define_instance_method('not_to') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('to_not') do |method|
+      method.define_argument('matcher')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ExpectationTarget::EXPRESSION') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ExpiredTestDoubleError') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MockExpectationError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::IGNORED_BACKTRACE_LINE') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Implementation') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('call') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initial_action')
+
+    klass.define_instance_method('initial_action=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('inner_action')
+
+    klass.define_instance_method('inner_action=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('present?')
+
+    klass.define_instance_method('terminal_action')
+
+    klass.define_instance_method('terminal_action=') do |method|
+      method.define_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::InstanceMethodReference') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MethodReference', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::InstanceMethodStasher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('handle_restoration_failures')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('method')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_is_stashed?')
+
+    klass.define_instance_method('original_method')
+
+    klass.define_instance_method('restore')
+
+    klass.define_instance_method('stash')
+  end
+
+  defs.define_constant('RSpec::Mocks::InstanceVerifyingDouble') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingDouble', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TestDouble', RubyLint.registry))
+
+    klass.define_instance_method('__build_mock_proxy') do |method|
+      method.define_argument('order_group')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::InstanceVerifyingDouble::SilentIO') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('respond_to?') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::MarshalExtension') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('patch!')
+
+    klass.define_method('unpatch!')
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::HaveReceived') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('subject')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('failure_message')
+
+    klass.define_instance_method('failure_message_when_negated')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('method_name')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('ordered') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('setup_allowance') do |method|
+      method.define_argument('_subject')
+      method.define_block_argument('_block')
+    end
+
+    klass.define_instance_method('setup_any_instance_allowance') do |method|
+      method.define_argument('_subject')
+      method.define_block_argument('_block')
+    end
+
+    klass.define_instance_method('setup_any_instance_expectation') do |method|
+      method.define_argument('_subject')
+      method.define_block_argument('_block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::HaveReceived::ARGS_CONSTRAINTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::HaveReceived::CONSTRAINTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::HaveReceived::COUNT_CONSTRAINTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::Receive') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('message')
+      method.define_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('never') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('once') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('ordered') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_allowance') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_any_instance_allowance') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_any_instance_expectation') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_any_instance_negative_expectation') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_expectation') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_negative_expectation') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::Receive::DefaultDescribable') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('description_for') do |method|
+      method.define_argument('verb')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('message')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::ReceiveMessageChain') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('and_call_original') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('chain')
+      method.define_block_argument('block')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('setup_allowance') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_any_instance_allowance') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_any_instance_expectation') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_expectation') do |method|
+      method.define_argument('subject')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('setup_negative_expectation') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Matchers::ReceiveMessages') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('does_not_match?') do |method|
+      method.define_argument('_subject')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('message_return_value_hash')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('subject')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('setup_allowance') do |method|
+      method.define_argument('subject')
+    end
+
+    klass.define_instance_method('setup_any_instance_allowance') do |method|
+      method.define_argument('subject')
+    end
+
+    klass.define_instance_method('setup_any_instance_expectation') do |method|
+      method.define_argument('subject')
+    end
+
+    klass.define_instance_method('setup_expectation') do |method|
+      method.define_argument('subject')
+    end
+
+    klass.define_instance_method('setup_negative_expectation') do |method|
+      method.define_argument('_subject')
+    end
+
+    klass.define_instance_method('warn_about_block')
+  end
+
+  defs.define_constant('RSpec::Mocks::MessageExpectation') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MessageExpectation::ImplementationDetails', RubyLint.registry))
+
+    klass.define_instance_method('and_call_original')
+
+    klass.define_instance_method('and_raise') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('and_return') do |method|
+      method.define_argument('first_value')
+      method.define_rest_argument('values')
+    end
+
+    klass.define_instance_method('and_throw') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('and_wrap_original') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('and_yield') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_least') do |method|
+      method.define_argument('n')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('at_most') do |method|
+      method.define_argument('n')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('exactly') do |method|
+      method.define_argument('n')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('never')
+
+    klass.define_instance_method('once') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('ordered') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('thrice') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('times') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('twice') do |method|
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::MessageExpectation::ImplementationDetails') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('actual_received_count_matters?')
+
+    klass.define_instance_method('additional_expected_calls')
+
+    klass.define_instance_method('advise') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('and_yield_receiver_to_implementation')
+
+    klass.define_instance_method('argument_list_matcher=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('called_max_times?')
+
+    klass.define_instance_method('description_for') do |method|
+      method.define_argument('verb')
+    end
+
+    klass.define_instance_method('ensure_expected_ordering_received!')
+
+    klass.define_instance_method('error_generator')
+
+    klass.define_instance_method('error_generator=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('expectation_count_type')
+
+    klass.define_instance_method('expected_args')
+
+    klass.define_instance_method('expected_from=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('expected_messages_received?')
+
+    klass.define_instance_method('expected_received_count=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('generate_error')
+
+    klass.define_instance_method('ignoring_args?')
+
+    klass.define_instance_method('implementation')
+
+    klass.define_instance_method('implementation=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('increase_actual_received_count!')
+
+    klass.define_instance_method('invoke') do |method|
+      method.define_argument('parent_stub')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('invoke_without_incrementing_received_count') do |method|
+      method.define_argument('parent_stub')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('matches_at_least_count?')
+
+    klass.define_instance_method('matches_at_most_count?')
+
+    klass.define_instance_method('matches_exact_count?')
+
+    klass.define_instance_method('matches_name_but_not_args') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('negative?')
+
+    klass.define_instance_method('negative_expectation_for?') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('ordered?')
+
+    klass.define_instance_method('orig_object')
+
+    klass.define_instance_method('raise_out_of_order_error')
+
+    klass.define_instance_method('raise_unexpected_message_args_error') do |method|
+      method.define_argument('args_for_multiple_calls')
+    end
+
+    klass.define_instance_method('safe_invoke') do |method|
+      method.define_argument('parent_stub')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('similar_messages')
+
+    klass.define_instance_method('unadvise') do |method|
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('verify_messages_received')
+
+    klass.define_instance_method('yield_receiver_to_implementation_block?')
+  end
+
+  defs.define_constant('RSpec::Mocks::MethodDouble') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('add_default_stub') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('add_expectation') do |method|
+      method.define_argument('error_generator')
+      method.define_argument('expectation_ordering')
+      method.define_argument('expected_from')
+      method.define_argument('opts')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('add_simple_expectation') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+      method.define_argument('error_generator')
+      method.define_argument('backtrace_line')
+    end
+
+    klass.define_instance_method('add_simple_stub') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+    end
+
+    klass.define_instance_method('add_stub') do |method|
+      method.define_argument('error_generator')
+      method.define_argument('expectation_ordering')
+      method.define_argument('expected_from')
+      method.define_optional_argument('opts')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('build_expectation') do |method|
+      method.define_argument('error_generator')
+      method.define_argument('expectation_ordering')
+    end
+
+    klass.define_instance_method('clear')
+
+    klass.define_instance_method('configure_method')
+
+    klass.define_instance_method('define_proxy_method')
+
+    klass.define_instance_method('expectations')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('method_name')
+      method.define_argument('proxy')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('message_expectation_class')
+
+    klass.define_instance_method('method_name')
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object_singleton_class')
+
+    klass.define_instance_method('original_implementation_callable')
+
+    klass.define_instance_method('original_method')
+
+    klass.define_instance_method('proxy_method_invoked') do |method|
+      method.define_argument('_obj')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('raise_method_not_stubbed_error')
+
+    klass.define_instance_method('remove_stub')
+
+    klass.define_instance_method('remove_stub_if_present')
+
+    klass.define_instance_method('reset')
+
+    klass.define_instance_method('restore_original_method')
+
+    klass.define_instance_method('restore_original_visibility')
+
+    klass.define_instance_method('save_original_implementation_callable!')
+
+    klass.define_instance_method('setup_simple_method_double') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+      method.define_argument('collection')
+      method.define_optional_argument('error_generator')
+      method.define_optional_argument('backtrace_line')
+    end
+
+    klass.define_instance_method('show_frozen_warning')
+
+    klass.define_instance_method('stubs')
+
+    klass.define_instance_method('verify')
+
+    klass.define_instance_method('visibility')
+  end
+
+  defs.define_constant('RSpec::Mocks::MethodDouble::RSpecPrependedModule') do |klass|
+    klass.inherits(defs.constant_proxy('Module', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::MethodReference') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('for') do |method|
+      method.define_argument('object_reference')
+      method.define_argument('method_name')
+    end
+
+    klass.define_method('instance_method_visibility_for') do |method|
+      method.define_argument('klass')
+      method.define_argument('method_name')
+    end
+
+    klass.define_method('method_defined_at_any_visibility?') do |method|
+      method.define_argument('klass')
+      method.define_argument('method_name')
+    end
+
+    klass.define_method('method_visibility_for') do |method|
+      method.define_argument('object')
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('defined?')
+
+    klass.define_instance_method('implemented?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object_reference')
+      method.define_argument('method_name')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('unimplemented?')
+
+    klass.define_instance_method('visibility')
+
+    klass.define_instance_method('with_signature')
+  end
+
+  defs.define_constant('RSpec::Mocks::MockExpectationAlreadyInvokedError') do |klass|
+    klass.inherits(defs.constant_proxy('Exception', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::MockExpectationError') do |klass|
+    klass.inherits(defs.constant_proxy('Exception', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Mutex') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('lock')
+
+    klass.define_instance_method('locked?')
+
+    klass.define_instance_method('owned?')
+
+    klass.define_instance_method('sleep') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_instance_method('synchronize')
+
+    klass.define_instance_method('try_lock')
+
+    klass.define_instance_method('unlock')
+  end
+
+  defs.define_constant('RSpec::Mocks::NamedObjectReference') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('const_to_replace')
+
+    klass.define_instance_method('defined?')
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('const_name')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('target')
+
+    klass.define_instance_method('when_loaded')
+  end
+
+  defs.define_constant('RSpec::Mocks::NegationUnsupportedError') do |klass|
+    klass.inherits(defs.constant_proxy('StandardError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::NestedSpace') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::Space', RubyLint.registry))
+
+    klass.define_instance_method('constant_mutator_for') do |method|
+      method.define_argument('name')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('parent')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('proxies_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('registered?') do |method|
+      method.define_argument('object')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::NoCallbackInvocationStrategy') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('call') do |method|
+      method.define_argument('_doubled_module')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectMethodReference') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MethodReference', RubyLint.registry))
+
+    klass.define_method('for') do |method|
+      method.define_argument('object_reference')
+      method.define_argument('method_name')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectReference') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('for') do |method|
+      method.define_argument('object_module_or_name')
+      method.define_optional_argument('allow_direct_object_refs')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectReference::MODULE_NAME_METHOD') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectVerifyingDouble') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::ObjectVerifyingDoubleMethods', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingDouble', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TestDouble', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectVerifyingDouble::SilentIO') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('respond_to?') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectVerifyingDoubleMethods') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('as_stubbed_const') do |method|
+      method.define_optional_argument('options')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ObjectVerifyingDoubleMethods::SilentIO') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('respond_to?') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::OrderGroup') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('clear')
+
+    klass.define_instance_method('consume')
+
+    klass.define_instance_method('empty?')
+
+    klass.define_instance_method('handle_order_constraint') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('invoked') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('ready_for?') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('register') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('verify_invocation_order') do |method|
+      method.define_argument('expectation')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::OutsideOfExampleError') do |klass|
+    klass.inherits(defs.constant_proxy('StandardError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialClassDoubleProxy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::PartialDoubleProxy', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::PartialClassDoubleProxyMethods', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialClassDoubleProxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialClassDoubleProxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialClassDoubleProxyMethods') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('original_method_handle_for') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('original_unbound_method_handle_from_ancestor_for') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('superclass_proxy')
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialDoubleProxy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::Proxy', RubyLint.registry))
+
+    klass.define_instance_method('add_simple_expectation') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+      method.define_argument('location')
+    end
+
+    klass.define_instance_method('add_simple_stub') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+    end
+
+    klass.define_instance_method('message_received') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('original_method_handle_for') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('reset')
+
+    klass.define_instance_method('visibility_for') do |method|
+      method.define_argument('method_name')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialDoubleProxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::PartialDoubleProxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Proxy') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('prepended_modules_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('add_message_expectation') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('opts')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('add_simple_expectation') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+      method.define_argument('location')
+    end
+
+    klass.define_instance_method('add_simple_stub') do |method|
+      method.define_argument('method_name')
+      method.define_argument('response')
+    end
+
+    klass.define_instance_method('add_stub') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('opts')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('as_null_object')
+
+    klass.define_instance_method('build_expectation') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('check_for_unexpected_arguments') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('ensure_implemented') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('has_negative_expectation?') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('order_group')
+      method.define_optional_argument('options')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('message_received') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('messages_arg_list')
+
+    klass.define_instance_method('null_object?')
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('original_method_handle_for') do |method|
+      method.define_argument('_message')
+    end
+
+    klass.define_instance_method('prepended_modules_of_singleton_class')
+
+    klass.define_instance_method('raise_missing_default_stub_error') do |method|
+      method.define_argument('expectation')
+      method.define_argument('args_for_multiple_calls')
+    end
+
+    klass.define_instance_method('raise_unexpected_message_error') do |method|
+      method.define_argument('method_name')
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('received_message?') do |method|
+      method.define_argument('method_name')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('record_message_received') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('remove_stub') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('remove_stub_if_present') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('replay_received_message_on') do |method|
+      method.define_argument('expectation')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('reset')
+
+    klass.define_instance_method('verify')
+
+    klass.define_instance_method('visibility_for') do |method|
+      method.define_argument('_method_name')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Proxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Proxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Proxy::SpecificMessage::Group') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('mem')
+
+    klass.define_instance_method('mem=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Proxy::SpecificMessage::Passwd') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('change')
+
+    klass.define_instance_method('change=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('dir')
+
+    klass.define_instance_method('dir=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('expire')
+
+    klass.define_instance_method('expire=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gecos')
+
+    klass.define_instance_method('gecos=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('shell')
+
+    klass.define_instance_method('shell=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uclass')
+
+    klass.define_instance_method('uclass=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uid')
+
+    klass.define_instance_method('uid=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Proxy::SpecificMessage::Tms') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('cstime')
+
+    klass.define_instance_method('cstime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('cutime')
+
+    klass.define_instance_method('cutime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('stime')
+
+    klass.define_instance_method('stime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('utime')
+
+    klass.define_instance_method('utime=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ProxyForNil') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::PartialDoubleProxy', RubyLint.registry))
+
+    klass.define_instance_method('add_message_expectation') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('opts')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('add_negative_message_expectation') do |method|
+      method.define_argument('location')
+      method.define_argument('method_name')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('add_stub') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('opts')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('order_group')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('warn_about_expectations')
+
+    klass.define_instance_method('warn_about_expectations=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('warn_about_expectations?')
+  end
+
+  defs.define_constant('RSpec::Mocks::ProxyForNil::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::ProxyForNil::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::ReentrantMutex') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('synchronize')
+  end
+
+  defs.define_constant('RSpec::Mocks::RootSpace') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('any_instance_proxy_for') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('any_instance_recorder_for') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('any_instance_recorders_from_ancestry_of') do |method|
+      method.define_argument('_object')
+    end
+
+    klass.define_instance_method('new_scope')
+
+    klass.define_instance_method('proxy_for') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('register_constant_mutator') do |method|
+      method.define_argument('_mutator')
+    end
+
+    klass.define_instance_method('registered?') do |method|
+      method.define_argument('_object')
+    end
+
+    klass.define_instance_method('reset_all')
+
+    klass.define_instance_method('superclass_proxy_for') do |method|
+      method.define_rest_argument('_args')
+    end
+
+    klass.define_instance_method('verify_all')
+  end
+
+  defs.define_constant('RSpec::Mocks::SimpleMessageExpectation') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('called_max_times?')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('message')
+      method.define_argument('response')
+      method.define_argument('error_generator')
+      method.define_optional_argument('backtrace_line')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('invoke') do |method|
+      method.define_rest_argument('_')
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('_')
+    end
+
+    klass.define_instance_method('unadvise') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('verify_messages_received')
+  end
+
+  defs.define_constant('RSpec::Mocks::Space') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('any_instance_mutex')
+
+    klass.define_instance_method('any_instance_proxy_for') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('any_instance_recorder_for') do |method|
+      method.define_argument('klass')
+      method.define_optional_argument('only_return_existing')
+    end
+
+    klass.define_instance_method('any_instance_recorders')
+
+    klass.define_instance_method('any_instance_recorders_from_ancestry_of') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_instance_method('constant_mutator_for') do |method|
+      method.define_argument('name')
+    end
+
+    klass.define_instance_method('ensure_registered') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_instance_method('initialize')
+
+    klass.define_instance_method('new_scope')
+
+    klass.define_instance_method('proxies')
+
+    klass.define_instance_method('proxies_of') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('proxy_for') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_instance_method('proxy_mutex')
+
+    klass.define_instance_method('register_constant_mutator') do |method|
+      method.define_argument('mutator')
+    end
+
+    klass.define_instance_method('registered?') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_instance_method('reset_all')
+
+    klass.define_instance_method('superclass_proxy_for') do |method|
+      method.define_argument('klass')
+    end
+
+    klass.define_instance_method('verify_all')
+  end
+
+  defs.define_constant('RSpec::Mocks::StubChain') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MessageChain', RubyLint.registry))
+
+    klass.define_method('stub_chain_on') do |method|
+      method.define_argument('object')
+      method.define_rest_argument('chain')
+      method.define_block_argument('blk')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Syntax') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('default_should_syntax_host')
+
+    klass.define_method('disable_expect') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('disable_should') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('enable_expect') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('enable_should') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('expect_enabled?') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('should_enabled?') do |method|
+      method.define_optional_argument('syntax_host')
+    end
+
+    klass.define_method('warn_about_should!')
+
+    klass.define_method('warn_unless_should_configured') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('replacement')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::TargetBase') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('delegate_not_to') do |method|
+      method.define_argument('matcher_method')
+      method.define_optional_argument('options')
+    end
+
+    klass.define_method('delegate_to') do |method|
+      method.define_argument('matcher_method')
+    end
+
+    klass.define_method('disallow_negation') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('target')
+
+      method.returns { |object| object.instance }
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::TestDouble') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('other')
+    end
+
+    klass.define_instance_method('__build_mock_proxy_unless_expired') do |method|
+      method.define_argument('order_group')
+    end
+
+    klass.define_instance_method('__disallow_further_usage!')
+
+    klass.define_instance_method('as_null_object')
+
+    klass.define_instance_method('freeze')
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('null_object?')
+
+    klass.define_instance_method('respond_to?') do |method|
+      method.define_argument('message')
+      method.define_optional_argument('incl_private')
+    end
+
+    klass.define_instance_method('to_s')
+  end
+
+  defs.define_constant('RSpec::Mocks::TestDoubleFormatter') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('format') do |method|
+      method.define_argument('dbl')
+      method.define_optional_argument('unwrap')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::TestDoubleProxy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::Proxy', RubyLint.registry))
+
+    klass.define_instance_method('reset')
+  end
+
+  defs.define_constant('RSpec::Mocks::TestDoubleProxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::TestDoubleProxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::UnsupportedMatcherError') do |klass|
+    klass.inherits(defs.constant_proxy('StandardError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingDouble') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('__send__') do |method|
+      method.define_argument('name')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('method_missing') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('respond_to?') do |method|
+      method.define_argument('message')
+      method.define_optional_argument('include_private')
+    end
+
+    klass.define_instance_method('send') do |method|
+      method.define_argument('name')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingDouble::SilentIO') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('method_missing') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('respond_to?') do |method|
+      method.define_rest_argument('arg1')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingDoubleNotDefinedError') do |klass|
+    klass.inherits(defs.constant_proxy('StandardError', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingExistingClassNewMethodDouble') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingExistingMethodDouble', RubyLint.registry))
+
+    klass.define_instance_method('with_signature')
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingExistingClassNewMethodDouble::RSpecPrependedModule') do |klass|
+    klass.inherits(defs.constant_proxy('Module', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingExistingMethodDouble') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingMethodDouble', RubyLint.registry))
+
+    klass.define_method('for') do |method|
+      method.define_argument('object')
+      method.define_argument('method_name')
+      method.define_argument('proxy')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('method_name')
+      method.define_argument('proxy')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('unimplemented?')
+
+    klass.define_instance_method('with_signature')
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingExistingMethodDouble::RSpecPrependedModule') do |klass|
+    klass.inherits(defs.constant_proxy('Module', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingMessageExpectation') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MessageExpectation', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_rest_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_reference')
+
+    klass.define_instance_method('method_reference=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('with') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingMessageExpectation::ImplementationDetails') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('actual_received_count_matters?')
+
+    klass.define_instance_method('additional_expected_calls')
+
+    klass.define_instance_method('advise') do |method|
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('and_yield_receiver_to_implementation')
+
+    klass.define_instance_method('argument_list_matcher=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('called_max_times?')
+
+    klass.define_instance_method('description_for') do |method|
+      method.define_argument('verb')
+    end
+
+    klass.define_instance_method('ensure_expected_ordering_received!')
+
+    klass.define_instance_method('error_generator')
+
+    klass.define_instance_method('error_generator=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('expectation_count_type')
+
+    klass.define_instance_method('expected_args')
+
+    klass.define_instance_method('expected_from=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('expected_messages_received?')
+
+    klass.define_instance_method('expected_received_count=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('generate_error')
+
+    klass.define_instance_method('ignoring_args?')
+
+    klass.define_instance_method('implementation')
+
+    klass.define_instance_method('implementation=') do |method|
+      method.define_argument('arg1')
+    end
+
+    klass.define_instance_method('increase_actual_received_count!')
+
+    klass.define_instance_method('invoke') do |method|
+      method.define_argument('parent_stub')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('invoke_without_incrementing_received_count') do |method|
+      method.define_argument('parent_stub')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('matches?') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('matches_at_least_count?')
+
+    klass.define_instance_method('matches_at_most_count?')
+
+    klass.define_instance_method('matches_exact_count?')
+
+    klass.define_instance_method('matches_name_but_not_args') do |method|
+      method.define_argument('message')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('negative?')
+
+    klass.define_instance_method('negative_expectation_for?') do |method|
+      method.define_argument('message')
+    end
+
+    klass.define_instance_method('ordered?')
+
+    klass.define_instance_method('orig_object')
+
+    klass.define_instance_method('raise_out_of_order_error')
+
+    klass.define_instance_method('raise_unexpected_message_args_error') do |method|
+      method.define_argument('args_for_multiple_calls')
+    end
+
+    klass.define_instance_method('safe_invoke') do |method|
+      method.define_argument('parent_stub')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('similar_messages')
+
+    klass.define_instance_method('unadvise') do |method|
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('verify_messages_received')
+
+    klass.define_instance_method('yield_receiver_to_implementation_block?')
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingMethodDouble') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::MethodDouble', RubyLint.registry))
+
+    klass.define_instance_method('add_expectation') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('add_stub') do |method|
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('method_name')
+      method.define_argument('proxy')
+      method.define_argument('method_reference')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('message_expectation_class')
+
+    klass.define_instance_method('proxy_method_invoked') do |method|
+      method.define_argument('obj')
+      method.define_rest_argument('args')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('validate_arguments!') do |method|
+      method.define_argument('actual_args')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingMethodDouble::RSpecPrependedModule') do |klass|
+    klass.inherits(defs.constant_proxy('Module', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingPartialClassDoubleProxy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingPartialDoubleProxy', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::PartialClassDoubleProxyMethods', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingPartialClassDoubleProxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingPartialClassDoubleProxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingPartialDoubleProxy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::PartialDoubleProxy', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingProxyMethods', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('expectation_ordering')
+      method.define_optional_argument('optional_callback_invocation_strategy')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_reference')
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingPartialDoubleProxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingPartialDoubleProxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingProxy') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::TestDoubleProxy', RubyLint.registry))
+    klass.inherits(defs.constant_proxy('RSpec::Mocks::VerifyingProxyMethods', RubyLint.registry))
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('object')
+      method.define_argument('order_group')
+      method.define_argument('doubled_module')
+      method.define_argument('method_reference_class')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('method_reference')
+
+    klass.define_instance_method('validate_arguments!') do |method|
+      method.define_argument('method_name')
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('visibility_for') do |method|
+      method.define_argument('method_name')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingProxy::DEFAULT_MESSAGE_EXPECTATION_OPTS') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingProxy::SpecificMessage') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('==') do |method|
+      method.define_argument('expectation')
+    end
+
+    klass.define_instance_method('args')
+
+    klass.define_instance_method('args=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('message')
+
+    klass.define_instance_method('message=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('object')
+
+    klass.define_instance_method('object=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::VerifyingProxyMethods') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('add_message_expectation') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('opts')
+      method.define_block_argument('block')
+    end
+
+    klass.define_instance_method('add_simple_stub') do |method|
+      method.define_argument('method_name')
+      method.define_rest_argument('args')
+    end
+
+    klass.define_instance_method('add_stub') do |method|
+      method.define_argument('method_name')
+      method.define_optional_argument('opts')
+      method.define_block_argument('implementation')
+    end
+
+    klass.define_instance_method('ensure_implemented') do |method|
+      method.define_argument('method_name')
+    end
+
+    klass.define_instance_method('ensure_publicly_implemented') do |method|
+      method.define_argument('method_name')
+      method.define_argument('_object')
+    end
+  end
+
+  defs.define_constant('RSpec::Mocks::Version') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Mocks::Version::STRING') do |klass|
     klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
 
   end
@@ -7751,11 +16742,21 @@ RubyLint.registry.register('RSpec') do |defs|
       method.define_block_argument('require_relative')
     end
 
+    klass.define_method('deregister_matcher_definition') do |method|
+      method.define_block_argument('block')
+    end
+
     klass.define_method('failure_notifier')
 
     klass.define_method('failure_notifier=') do |method|
       method.define_argument('callable')
     end
+
+    klass.define_method('is_a_matcher?') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_method('matcher_definitions')
 
     klass.define_method('method_handle_for') do |method|
       method.define_argument('object')
@@ -7767,7 +16768,23 @@ RubyLint.registry.register('RSpec') do |defs|
       method.define_optional_argument('options')
     end
 
+    klass.define_method('register_matcher_definition') do |method|
+      method.define_block_argument('block')
+    end
+
     klass.define_method('require_rspec_core') do |method|
+      method.define_argument('f')
+    end
+
+    klass.define_method('require_rspec_expectations') do |method|
+      method.define_argument('f')
+    end
+
+    klass.define_method('require_rspec_matchers') do |method|
+      method.define_argument('f')
+    end
+
+    klass.define_method('require_rspec_mocks') do |method|
       method.define_argument('f')
     end
 
@@ -7775,11 +16792,26 @@ RubyLint.registry.register('RSpec') do |defs|
       method.define_argument('f')
     end
 
+    klass.define_method('rspec_description_for_object') do |method|
+      method.define_argument('object')
+    end
+
     klass.define_method('thread_local_data')
 
     klass.define_method('with_failure_notifier') do |method|
       method.define_argument('callable')
     end
+  end
+
+  defs.define_constant('RSpec::Support::BlockSignature') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Support::MethodSignature', RubyLint.registry))
+
+    klass.define_instance_method('classify_parameters')
+  end
+
+  defs.define_constant('RSpec::Support::BlockSignature::INFINITY') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
   end
 
   defs.define_constant('RSpec::Support::DEFAULT_FAILURE_NOTIFIER') do |klass|
@@ -7902,9 +16934,119 @@ RubyLint.registry.register('RSpec') do |defs|
 
   end
 
+  defs.define_constant('RSpec::Support::FuzzyMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('values_match?') do |method|
+      method.define_argument('expected')
+      method.define_argument('actual')
+    end
+  end
+
   defs.define_constant('RSpec::Support::KERNEL_METHOD_METHOD') do |klass|
     klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
 
+  end
+
+  defs.define_constant('RSpec::Support::LooseSignatureVerifier') do |klass|
+    klass.inherits(defs.constant_proxy('RSpec::Support::MethodSignatureVerifier', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Support::LooseSignatureVerifier::SignatureWithKeywordArgumentsMatcher') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('has_kw_args_in?') do |method|
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('signature')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('invalid_kw_args_from') do |method|
+      method.define_argument('_kw_args')
+    end
+
+    klass.define_instance_method('missing_kw_args_from') do |method|
+      method.define_argument('_kw_args')
+    end
+
+    klass.define_instance_method('non_kw_args_arity_description')
+
+    klass.define_instance_method('valid_non_kw_args?') do |method|
+      method.define_rest_argument('args')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::MethodSignature') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('classify_parameters')
+
+    klass.define_instance_method('could_contain_kw_args?') do |method|
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('description')
+
+    klass.define_instance_method('has_kw_args_in?') do |method|
+      method.define_argument('args')
+    end
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('method')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('invalid_kw_args_from') do |method|
+      method.define_argument('given_kw_args')
+    end
+
+    klass.define_instance_method('max_non_kw_args')
+
+    klass.define_instance_method('min_non_kw_args')
+
+    klass.define_instance_method('missing_kw_args_from') do |method|
+      method.define_argument('given_kw_args')
+    end
+
+    klass.define_instance_method('non_kw_args_arity_description')
+
+    klass.define_instance_method('optional_kw_args')
+
+    klass.define_instance_method('required_kw_args')
+
+    klass.define_instance_method('valid_non_kw_args?') do |method|
+      method.define_argument('positional_arg_count')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::MethodSignature::INFINITY') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Support::MethodSignatureVerifier') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('error_message')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('signature')
+      method.define_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('kw_args')
+
+    klass.define_instance_method('non_kw_args')
+
+    klass.define_instance_method('valid?')
   end
 
   defs.define_constant('RSpec::Support::OS') do |klass|
@@ -7913,6 +17055,228 @@ RubyLint.registry.register('RSpec') do |defs|
     klass.define_method('windows?')
 
     klass.define_method('windows_file_path?')
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_method('format') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_method('format_date_time') do |method|
+      method.define_argument('date_time')
+    end
+
+    klass.define_method('format_time') do |method|
+      method.define_argument('time')
+    end
+
+    klass.define_method('prepare_for_inspection') do |method|
+      method.define_argument('object')
+    end
+
+    klass.define_method('prepare_hash') do |method|
+      method.define_argument('input')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter::DATE_TIME_FORMAT') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter::InspectableItem') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('inspect')
+
+    klass.define_instance_method('inspection')
+
+    klass.define_instance_method('inspection=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('pretty_print') do |method|
+      method.define_argument('pp')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter::InspectableItem::Group') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('mem')
+
+    klass.define_instance_method('mem=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter::InspectableItem::Passwd') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('each')
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('change')
+
+    klass.define_instance_method('change=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('dir')
+
+    klass.define_instance_method('dir=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('expire')
+
+    klass.define_instance_method('expire=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gecos')
+
+    klass.define_instance_method('gecos=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('gid')
+
+    klass.define_instance_method('gid=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('name')
+
+    klass.define_instance_method('name=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('passwd')
+
+    klass.define_instance_method('passwd=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('shell')
+
+    klass.define_instance_method('shell=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uclass')
+
+    klass.define_instance_method('uclass=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('uid')
+
+    klass.define_instance_method('uid=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter::InspectableItem::Tms') do |klass|
+    klass.inherits(defs.constant_proxy('Struct', RubyLint.registry))
+
+    klass.define_method('[]') do |method|
+      method.define_rest_argument('arg1')
+    end
+
+    klass.define_method('members')
+
+    klass.define_method('new') do |method|
+      method.define_rest_argument('arg1')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('cstime')
+
+    klass.define_instance_method('cstime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('cutime')
+
+    klass.define_instance_method('cutime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('stime')
+
+    klass.define_instance_method('stime=') do |method|
+      method.define_argument('_')
+    end
+
+    klass.define_instance_method('utime')
+
+    klass.define_instance_method('utime=') do |method|
+      method.define_argument('_')
+    end
+  end
+
+  defs.define_constant('RSpec::Support::ObjectFormatter::TIME_FORMAT') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
   end
 
   defs.define_constant('RSpec::Support::RecursiveConstMethods') do |klass|
@@ -7971,6 +17335,25 @@ RubyLint.registry.register('RSpec') do |defs|
     klass.define_method('required_kw_args_supported?')
 
     klass.define_method('supports_rebinding_module_methods?')
+  end
+
+  defs.define_constant('RSpec::Support::StrictSignatureVerifier') do |klass|
+    klass.inherits(defs.constant_proxy('Object', RubyLint.registry))
+
+    klass.define_instance_method('error_message')
+
+    klass.define_instance_method('initialize') do |method|
+      method.define_argument('signature')
+      method.define_argument('args')
+
+      method.returns { |object| object.instance }
+    end
+
+    klass.define_instance_method('kw_args')
+
+    klass.define_instance_method('non_kw_args')
+
+    klass.define_instance_method('valid?')
   end
 
   defs.define_constant('RSpec::Support::Version') do |klass|
